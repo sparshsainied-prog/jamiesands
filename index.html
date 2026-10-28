@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Jamie Sands | Mt Eden Witches</title>
+<meta name="description" content="Jamie Sands writes optimistic urban fantasy from Auckland: the Mt Eden Witches, a library witch and a ghost hunter.">
+<meta property="og:title" content="A homepage for Jamie Sands, made by Sparsh Saini">
+<meta property="og:description" content="A homepage idea for Jamie Sands and the Mt Eden Witches, made by Sparsh Saini. Not the official site.">
+<meta property="og:image" content="https://sparshsainied-prog.github.io/jamiesands/img/og.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23241309'/><path d='M5 22c4-2 7-2 11 0 4-2 7-2 11 0V10c-4-2-7-2-11 0-4-2-7-2-11 0Z M16 10v12' fill='none' stroke='%23efc977' stroke-width='1.6' stroke-linejoin='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+/* Colours from the Monsters & Manuscripts cover: the dark wood of the shelves, the amber
+   library light, the gilt of the title lettering and the old paper of the open book. */
+:root {
+  --wood: #1e1009;
+  --shelf: #2c170b;
+  --amber: #c4601d;
+  --glow: #f7b552;
+  --gilt: #efc977;
+  --gilt-2: #b8904a;
+  --paper: #f4e4bd;
+  --paper-2: #d6c39b;
+  --display: "Cinzel Decorative", "Trajan Pro", Georgia, serif;
+  --text: "EB Garamond", Garamond, Georgia, serif;
+  --gutter: clamp(1rem, 5vw, 4rem);
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--wood); color: var(--paper); font-family: var(--text); font-size: 1.24rem; line-height: 1.55; overflow-x: hidden; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+.wrap { max-width: 70rem; margin: 0 auto; padding: 0 var(--gutter); }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; margin: 0; line-height: 1.05; color: var(--gilt); }
+p { margin: 0 0 1rem; }
+:focus-visible { outline: 2px solid var(--glow); outline-offset: 3px; }
+/* Buttons set like the cover's lettering: gilt on dark, a thin engraved edge */
+.btn { display: inline-block; padding: .62rem 1.3rem .7rem; border: 1px solid var(--gilt); border-radius: 2px; background: linear-gradient(#f3d58f, #c99a4c); color: var(--wood); font-family: var(--display); font-weight: 700; font-size: 1rem; letter-spacing: .04em; text-decoration: none; box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 .4rem 1.2rem rgba(0,0,0,.35); }
+.btn:hover, .btn:focus-visible { background: var(--paper); }
+.quiet { font-style: italic; text-underline-offset: .25em; text-decoration-thickness: 1px; color: var(--gilt); }
+.quiet:hover, .quiet:focus-visible { color: var(--paper); }
+.buy { display: flex; flex-wrap: wrap; gap: .9rem 1.4rem; align-items: center; }
+
+.top { position: absolute; z-index: 20; top: 0; left: 0; right: 0; }
+.made { margin: 0; padding: .45rem var(--gutter); background: #120904; color: var(--paper-2); font-size: .98rem; line-height: 1.35; text-align: center; }
+.bar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .8rem var(--gutter); }
+.mark { font-family: var(--display); font-size: 1.45rem; font-weight: 700; text-decoration: none; color: var(--gilt); text-shadow: 0 1px 12px rgba(20, 8, 2, .9); }
+.bar nav { display: flex; gap: 1.4rem; }
+.bar nav a { text-decoration: none; color: var(--paper); text-shadow: 0 1px 10px rgba(20, 8, 2, .95); }
+.bar nav a:hover, .bar nav a:focus-visible { color: var(--gilt); }
+
+/* Hero: we start inside the open book on the Monsters & Manuscripts cover. Scrolling pulls
+   back through the library until the whole cover sits on the page. One image, moved with
+   transform only; the three lines are Jamie's own blurb. */
+.hero { position: relative; height: 100svh; min-height: 38rem; }
+.js .hero { height: 380svh; }
+.stage { position: sticky; top: 0; height: 100svh; min-height: 38rem; overflow: hidden; background: radial-gradient(ellipse 70% 60% at 30% 55%, #3a1e0c, var(--wood) 75%); }
+.fly { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; box-shadow: 0 1.8rem 4rem rgba(5, 2, 0, .75); }
+.fly img { width: 100%; height: 100%; }
+.dim { position: absolute; inset: 0; background: linear-gradient(transparent 35%, rgba(20, 9, 3, .7)); pointer-events: none; will-change: opacity; }
+.lines { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 10svh; max-width: 44rem; }
+.lines p { position: absolute; left: 0; bottom: 0; margin: 0; font-family: var(--display); font-weight: 700; font-size: clamp(2.3rem, 5.6vw, 4.6rem); line-height: 1.02; color: var(--gilt); text-shadow: 0 2px 2px rgba(40, 18, 4, .9), 0 0 30px rgba(20, 8, 2, .9); will-change: transform, opacity; opacity: 0; text-wrap: balance; }
+.lines p:first-child { opacity: 1; }
+.lines small { display: block; margin-top: .7rem; font-family: var(--text); font-weight: 400; font-style: italic; font-size: 1.15rem; color: var(--paper); text-shadow: 0 1px 8px rgba(20, 8, 2, .95); }
+.inside { position: absolute; inset: 7rem var(--gutter) 2.5rem; display: grid; grid-template-columns: auto minmax(0, 32rem); justify-content: center; align-items: center; gap: clamp(2rem, 5vw, 4.5rem); pointer-events: none; }
+@media (min-width: 761px) { .lines { left: auto; right: var(--gutter); width: min(34rem, 42vw); bottom: 14svh; } .lines p { font-size: clamp(2.2rem, 3.6vw, 3.6rem); } }
+.ph { height: min(64svh, 36rem); aspect-ratio: 1707 / 2560; }
+.copy { will-change: transform, opacity; pointer-events: auto; }
+.js .copy { opacity: 0; }
+.copy .series { font-family: var(--display); font-size: 1.05rem; color: var(--paper-2); margin-bottom: .6rem; }
+.copy h1 { font-size: clamp(2.6rem, 4vw, 3.8rem); }
+.copy .tag { font-size: clamp(1.25rem, 1.9vw, 1.5rem); margin: 1rem 0 1.5rem; color: var(--paper); }
+html:not(.js) .lines, html:not(.js) .dim { display: none; }
+
+/* Calm sections */
+.band { padding: clamp(4.5rem, 10vw, 8rem) 0; }
+h2 { font-size: clamp(2.3rem, 4.8vw, 3.8rem); margin-bottom: 1.4rem; text-wrap: balance; }
+.book { background: var(--shelf); }
+.book .grid { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
+.book .cover-s { box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, .55); position: sticky; top: 2rem; }
+.blurb { max-width: 38rem; }
+.blurb .open { font-family: var(--display); font-size: clamp(1.45rem, 2.4vw, 1.9rem); line-height: 1.25; color: var(--gilt); margin-bottom: 1.6rem; }
+.blurb .note { font-style: italic; color: var(--paper-2); margin: 1.6rem 0 2rem; }
+
+.shelf { background: var(--wood); }
+.shelf .intro { max-width: 38rem; font-size: clamp(1.3rem, 2vw, 1.5rem); line-height: 1.4; }
+.order { list-style: none; margin: 2.8rem 0 0; padding: 0; border-top: 1px solid rgba(239, 201, 119, .3); }
+.order li { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) auto; gap: 1.6rem; align-items: center; padding: 1.3rem 0; border-bottom: 1px solid rgba(239, 201, 119, .3); }
+.order img { width: 5.5rem; box-shadow: 0 .6rem 1.4rem rgba(0, 0, 0, .5); }
+.order .n { font-family: var(--display); font-size: .95rem; color: var(--paper-2); display: block; }
+.order h3 { font-size: clamp(1.35rem, 2.4vw, 1.75rem); margin: .2rem 0 .4rem; }
+.order p { margin: 0; color: var(--paper); max-width: 36rem; }
+.order .go { white-space: nowrap; }
+
+.table { background: linear-gradient(var(--amber), #a24b14); color: var(--wood); }
+.table h2 { color: var(--wood); }
+.table .grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+.table .big { font-family: var(--display); font-weight: 700; font-size: clamp(3.4rem, 9vw, 7rem); line-height: .9; margin: .4rem 0 1rem; color: #fff1cf; text-shadow: 0 2px 0 rgba(60, 25, 5, .35); }
+.table .lead-in { font-size: clamp(1.3rem, 2vw, 1.5rem); line-height: 1.4; }
+.made-list { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--wood); }
+.made-list li { padding: 1rem 0; border-bottom: 1px solid rgba(30, 16, 9, .35); }
+.made-list b { font-family: var(--display); font-size: 1.3rem; display: block; line-height: 1.2; }
+.made-list a { color: var(--wood); }
+
+.about { background: var(--shelf); }
+.about .grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+.about .lead-in { font-family: var(--display); font-size: clamp(1.5rem, 2.6vw, 2.1rem); line-height: 1.25; color: var(--gilt); }
+.where { list-style: none; padding: 0; margin: 0; border-top: 1px solid rgba(239, 201, 119, .3); }
+.where li { border-bottom: 1px solid rgba(239, 201, 119, .3); }
+.where a { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: .9rem 0; text-decoration: none; }
+.where a span { color: var(--paper-2); font-style: italic; text-align: right; }
+.where a:hover, .where a:focus-visible { color: var(--gilt); }
+
+footer { padding: 2.2rem 0 2.6rem; background: #120904; color: var(--paper-2); font-size: 1.02rem; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: .8rem 2rem; justify-content: space-between; }
+footer p { margin: 0; }
+
+@media (max-width: 760px) {
+  body { font-size: 1.15rem; }
+  .mark { font-size: 1.2rem; }
+  .bar nav { gap: 1rem; }
+  .bar nav .wide { display: none; }
+  .lines { bottom: 8svh; }
+  .inside { inset: 6.4rem 1.2rem 1.6rem; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; justify-items: center; align-content: center; gap: 1.3rem; text-align: center; }
+  .ph { height: min(36svh, 19rem); }
+  .copy .series { font-size: .92rem; margin-bottom: .3rem; }
+  .copy h1 { font-size: 2.35rem; }
+  .copy .tag { margin: .6rem 0 1rem; font-size: 1.12rem; }
+  .copy .buy { justify-content: center; }
+  .book .grid, .table .grid, .about .grid { grid-template-columns: minmax(0, 1fr); }
+  .book .cover-s { position: static; max-width: 14rem; }
+  .order li { grid-template-columns: 4.2rem minmax(0, 1fr); gap: 1rem; }
+  .order img { width: 4.2rem; }
+  .order .go { grid-column: 2; }
+}
+</style>
+</head>
+<body>
+<div class="top">
+  <p class="made">A homepage idea made by Sparsh Saini for Jamie Sands. Not their official site.</p>
+  <div class="bar">
+    <a class="mark" href="#">Jamie Sands</a>
+    <nav aria-label="Main">
+      <a href="#book">Books</a>
+      <a class="wide" href="#table">At my table</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+<section class="hero" aria-label="Monsters and Manuscripts">
+  <div class="stage">
+    <div class="fly">
+      <picture>
+        <source media="(max-width: 760px)" srcset="img/monsters-m.jpg">
+        <img src="img/monsters.jpg" alt="Monsters &amp; Manuscripts cover: an open book glowing on a library table, grey monster hands reaching from the shelves" width="1707" height="2560" fetchpriority="high">
+      </picture>
+    </div>
+    <div class="dim"></div>
+    <div class="lines" aria-hidden="true">
+      <p>One witch.<small>Mt Eden, Auckland. A library. Some magic.</small></p>
+      <p>One paranormal investigator.</p>
+      <p>Something that went bump in the night…</p>
+    </div>
+    <div class="inside">
+      <div class="ph"></div>
+      <div class="copy">
+        <p class="series">Mt Eden Witches, book two</p>
+        <h1>Monsters &amp; Manuscripts</h1>
+        <p class="tag">Library witch Basil and YouTuber Sebastian, strange books turning up at the library, and an uninvited guest in the attic.</p>
+        <div class="buy">
+          <a class="btn" href="https://books2read.com/MonstersManuscripts">Find a copy</a>
+          <a class="quiet" href="#series">Start with book one</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band book" id="book">
+  <div class="wrap grid">
+    <img class="cover-s" src="img/monsters-s.jpg" alt="Monsters &amp; Manuscripts by Jamie Sands" width="400" height="600" loading="lazy">
+    <div class="blurb">
+      <h2>Monsters &amp; Manuscripts</h2>
+      <p class="open">One witch. One paranormal investigator. Something that went bump in the night…</p>
+      <p>Library witch Basil and YouTuber Sebastian have settled into life together in the sleepy suburb of Mt Eden.</p>
+      <p>Basil is overjoyed to have a handsome boyfriend to come home to and he is connecting deeper with his magic. But when strange books start to turn up at his library and an uninvited guest makes noises in their attic, it’s up to them to investigate.</p>
+      <p>As a paranormal YouTuber, Sebastian can’t resist a new mystery. Especially since he’s been in one place for far too long… Is his enthusiasm for the next story going to ruin everything?</p>
+      <p class="note">A novella with monsters, witches and a sweet gay romance, part of the Witchy Fiction project of New Zealand authors.</p>
+      <div class="buy">
+        <a class="btn" href="https://books2read.com/MonstersManuscripts">Find a copy</a>
+        <a class="quiet" href="https://www.goodreads.com/book/show/59564417-monsters-and-manuscripts">On Goodreads</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band shelf" id="series">
+  <div class="wrap">
+    <h2>The Mt Eden Witches, in order</h2>
+    <p class="intro">Four short books about Basil, a librarian who is also a witch, and Sebastian, the ghost hunter who wouldn’t stop snooping around his library.</p>
+    <ol class="order">
+      <li>
+        <img src="img/overdues.jpg" alt="Overdues &amp; Occultism cover" width="400" height="600" loading="lazy">
+        <div><span class="n">Book one</span><h3>Overdues &amp; Occultism</h3><p>A witch in the broom closet probably shouldn’t be so interested in a ghost hunter, right?</p></div>
+        <a class="quiet go" href="https://www.amazon.com/dp/B08FBNBZT4">Amazon</a>
+      </li>
+      <li>
+        <img src="img/monsters-s.jpg" alt="Monsters &amp; Manuscripts cover" width="400" height="600" loading="lazy">
+        <div><span class="n">Book two</span><h3>Monsters &amp; Manuscripts</h3><p>Strange books at the library, and something in the attic.</p></div>
+        <a class="quiet go" href="https://books2read.com/MonstersManuscripts">All stores</a>
+      </li>
+      <li>
+        <img src="img/rituals.jpg" alt="Rituals &amp; Roadtrips cover" width="400" height="600" loading="lazy">
+        <div><span class="n">Book three</span><h3>Rituals &amp; Roadtrips</h3><p>Basil wants a quiet holiday. Sebastian wants haunted places to film. A road trip around the upper North Island, and magic gets in the way.</p></div>
+        <a class="quiet go" href="https://books2read.com/RitualsandRoadtrips">All stores</a>
+      </li>
+      <li>
+        <img src="img/beachhouse.jpg" alt="The Haunting of Beach House cover" width="400" height="600" loading="lazy">
+        <div><span class="n">Book four</span><h3>The Haunting of Beach House</h3><p>The restless spirits of Beach House will not be ignored.</p></div>
+        <a class="quiet go" href="https://books2read.com/HauntingBeachHouse">All stores</a>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="band table" id="table">
+  <div class="wrap grid">
+    <div>
+      <h2>Come and find my table</h2>
+      <p class="big">C67</p>
+      <p class="lead-in">That was me at Armageddon Auckland this October. Next time, come and say hello.</p>
+    </div>
+    <ul class="made-list">
+      <li><b>Rocky plush</b>Polar fleece, felt appliqué and embroidery, made by me. <a href="https://payhip.com/b/hwCUt">NZ$55 on Payhip</a></li>
+      <li><b>Notebooks and journals</b>A character journal for writers, a reading log and more. <a href="https://jamiesandsblog.wordpress.com/2022/11/27/masterlist-of-notebooks-ive-designed/">The full list</a></li>
+      <li><b>Trading Places</b>A journaling RPG. <a href="https://jamiedsands.itch.io/trading-places">On itch.io</a></li>
+      <li><b>The online store</b>For New Zealand orders. <a href="https://payhip.com/GreyKelpieStudio">Grey Kelpie Studio</a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="band about" id="about">
+  <div class="wrap grid">
+    <div>
+      <h2>Jamie Sands</h2>
+      <p class="lead-in">Optimistic urban fantasy, queer romance, paranormal, and some things that don’t make sense.</p>
+    </div>
+    <div>
+      <p>I grew up in Wellington, a library devotee and a constant reader from very early on. Now I live in Auckland with my partner and two formerly stray cats.</p>
+      <p>I’ve had stories in the Baby Teeth horror anthology and Enamel literary magazine, and I’ve self published roleplaying games as well as fiction.</p>
+      <p>I’ve been to Japan three times, another trip is always being planned, and I would like to move into Tokyo Disneyland.</p>
+      <ul class="where">
+        <li><a href="https://greykelpiestudio.eo.page/tk5gx">Newsletter <span>sign up</span></a></li>
+        <li><a href="https://www.instagram.com/jamiesandsauthor/">Instagram <span>@jamiesandsauthor</span></a></li>
+        <li><a href="https://www.tiktok.com/@jamiesandswriter">TikTok <span>@jamiesandswriter</span></a></li>
+        <li><a href="https://ko-fi.com/jamies">Ko-fi <span>buy me a coffee</span></a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>A mockup made by Sparsh Saini for Jamie Sands. Not affiliated, not live. The covers and words are the author’s.</p>
+    <p><a class="quiet" href="#">Back to top</a></p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const hero = document.querySelector('.hero'), stage = hero.querySelector('.stage');
+  const fly = hero.querySelector('.fly'), ph = hero.querySelector('.ph'), dim = hero.querySelector('.dim');
+  const lines = [...hero.querySelectorAll('.lines p')], copy = hero.querySelector('.copy');
+  const W = 1707, H = 2560, F = [880, 1880]; // the middle of the open book, in cover pixels
+  const clamp = v => Math.min(1, Math.max(0, v));
+  const ease = t => t * t * (3 - 2 * t);
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let g = null;
+  const measure = () => {
+    const w = stage.clientWidth, h = stage.clientHeight, sr = stage.getBoundingClientRect(), r = ph.getBoundingClientRect();
+    const phone = w <= 760;
+    const a = [w / 2, h * .62];
+    // deep in the book, but never so far out that an edge of the cover shows
+    const s0 = Math.max(w / (phone ? 760 : 1500), h / (phone ? 1250 : 900), a[0] / F[0], (w - a[0]) / (W - F[0]), a[1] / F[1], (h - a[1]) / (H - F[1]));
+    const s1 = r.height / H;
+    fly.style.width = (W * s0) + 'px'; fly.style.height = (H * s0) + 'px';
+    g = { s0, s1, a, b: [r.left - sr.left + F[0] * s1, r.top - sr.top + F[1] * s1] };
+  };
+  const render = p => {
+    if (!g) measure();
+    const e = ease(clamp((p - .06) / .74));
+    const s = Math.exp(Math.log(g.s0) + (Math.log(g.s1) - Math.log(g.s0)) * e);
+    const fx = g.a[0] + (g.b[0] - g.a[0]) * e, fy = g.a[1] + (g.b[1] - g.a[1]) * e;
+    fly.style.transform = `translate(${(fx - F[0] * s).toFixed(1)}px,${(fy - F[1] * s).toFixed(1)}px) scale(${(s / g.s0).toFixed(4)})`;
+    // three lines, one after another, while the library comes into view
+    const win = [[-1, 0, .16, .24], [.16, .24, .36, .44], [.36, .44, .6, .68]];
+    lines.forEach((l, i) => {
+      const [a, b, c, d] = win[i];
+      const vin = i ? ease(clamp((p - a) / (b - a))) : 1, vout = ease(clamp((p - c) / (d - c)));
+      l.style.opacity = (vin * (1 - vout)).toFixed(3);
+      l.style.transform = `translateY(${((1 - vin) * 1.2 - vout * 1.2).toFixed(2)}rem)`;
+    });
+    dim.style.opacity = (1 - ease(clamp((p - .55) / .2))).toFixed(3);
+    const t = ease(clamp((p - .74) / .2));
+    copy.style.opacity = t.toFixed(3);
+    copy.style.transform = `translateY(${((1 - t) * 1.4).toFixed(2)}rem)`;
+  };
+  if (reduced) {
+    document.documentElement.classList.remove('js');
+    const end = () => { g = null; render(1); };
+    end(); addEventListener('resize', end);
+    return;
+  }
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const run = hero.offsetHeight - innerHeight;
+    const p = run > 0 ? clamp(-hero.getBoundingClientRect().top / run) : 1;
+    render(p);
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener('resize', () => { g = null; update(); });
+  update();
+})();
+</script>
+</body>
+</html>
