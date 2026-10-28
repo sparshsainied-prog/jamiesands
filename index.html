@@ -61,8 +61,13 @@ p { margin: 0 0 1rem; }
 .hero { position: relative; height: 100svh; min-height: 38rem; }
 .js .hero { height: 380svh; }
 .stage { position: sticky; top: 0; height: 100svh; min-height: 38rem; overflow: hidden; background: radial-gradient(ellipse 70% 60% at 30% 55%, #3a1e0c, var(--wood) 75%); }
-.fly { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; box-shadow: 0 1.8rem 4rem rgba(5, 2, 0, .75); }
-.fly img { width: 100%; height: 100%; }
+.fly { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; overflow: hidden; box-shadow: 0 1.8rem 4rem rgba(5, 2, 0, .75); }
+.fly .plate { width: 100%; height: 100%; }
+/* planes cut from the cover itself, placed in cover percentages */
+.pl { position: absolute; max-width: none; will-change: transform, opacity; }
+.pl.hands { left: 41.59%; top: 32.7%; width: 58.41%; height: 31.84%; transform-origin: 100% 60%; }
+.pl.page { left: 0; top: 64.06%; width: 100%; height: 35.94%; transform-origin: 51.5% 35%; }
+.pl.glints { left: 0; top: 0; width: 100%; height: 100%; }
 .dim { position: absolute; inset: 0; background: linear-gradient(transparent 35%, rgba(20, 9, 3, .7)); pointer-events: none; will-change: opacity; }
 .lines { position: absolute; left: var(--gutter); right: var(--gutter); bottom: 10svh; max-width: 44rem; }
 .lines p { position: absolute; left: 0; bottom: 0; margin: 0; font-family: var(--display); font-weight: 700; font-size: clamp(2.3rem, 5.6vw, 4.6rem); line-height: 1.02; color: var(--gilt); text-shadow: 0 2px 2px rgba(40, 18, 4, .9), 0 0 30px rgba(20, 8, 2, .9); will-change: transform, opacity; opacity: 0; text-wrap: balance; }
@@ -159,9 +164,12 @@ footer p { margin: 0; }
   <div class="stage">
     <div class="fly">
       <picture>
-        <source media="(max-width: 760px)" srcset="img/monsters-m.jpg">
-        <img src="img/monsters.jpg" alt="Monsters &amp; Manuscripts cover: an open book glowing on a library table, grey monster hands reaching from the shelves" width="1707" height="2560" fetchpriority="high">
+        <source media="(max-width: 760px)" srcset="img/plate-m.jpg">
+        <img class="plate" src="img/plate.jpg" alt="Monsters &amp; Manuscripts cover: an open book glowing on a library table, grey monster hands reaching from the shelves" width="1707" height="2560" fetchpriority="high">
       </picture>
+      <img class="pl glints" src="img/glints.webp" alt="" width="854" height="1280">
+      <img class="pl hands" src="img/hands.webp" alt="" width="997" height="815">
+      <img class="pl page" src="img/book.webp" alt="" width="1707" height="920">
     </div>
     <div class="dim"></div>
     <div class="lines" aria-hidden="true">
@@ -280,6 +288,7 @@ footer p { margin: 0; }
   const hero = document.querySelector('.hero'), stage = hero.querySelector('.stage');
   const fly = hero.querySelector('.fly'), ph = hero.querySelector('.ph'), dim = hero.querySelector('.dim');
   const lines = [...hero.querySelectorAll('.lines p')], copy = hero.querySelector('.copy');
+  const hands = hero.querySelector('.pl.hands'), page = hero.querySelector('.pl.page'), glints = hero.querySelector('.pl.glints');
   const W = 1707, H = 2560, F = [880, 1880]; // the middle of the open book, in cover pixels
   const clamp = v => Math.min(1, Math.max(0, v));
   const ease = t => t * t * (3 - 2 * t);
@@ -301,8 +310,17 @@ footer p { margin: 0; }
     const s = Math.exp(Math.log(g.s0) + (Math.log(g.s1) - Math.log(g.s0)) * e);
     const fx = g.a[0] + (g.b[0] - g.a[0]) * e, fy = g.a[1] + (g.b[1] - g.a[1]) * e;
     fly.style.transform = `translate(${(fx - F[0] * s).toFixed(1)}px,${(fy - F[1] * s).toFixed(1)}px) scale(${(s / g.s0).toFixed(4)})`;
+    // Depth: the open book is the nearest plane, so it is still oversized while we pull back and
+    // settles last. The hands live in the shelves and reach in from the right edge, toward the book,
+    // while the third line is up. The cover's own sparkles drift on their own plane.
+    const near = 1 - ease(clamp((p - .04) / .82));
+    page.style.transform = `scale(${(1 + .32 * near).toFixed(4)})`;
+    const r = ease(clamp((p - .06) / .36));
+    hands.style.transform = `translate(${((1 - r) * 70).toFixed(2)}%,${((1 - r) * 8).toFixed(2)}%) rotate(${((1 - r) * 5).toFixed(2)}deg)`;
+    hands.style.opacity = clamp(r * 3).toFixed(3);
+    glints.style.transform = `translateY(${(near * 7).toFixed(2)}%) scale(${(1 + .12 * near).toFixed(4)})`;
     // three lines, one after another, while the library comes into view
-    const win = [[-1, 0, .16, .24], [.16, .24, .36, .44], [.36, .44, .6, .68]];
+    const win = [[-1, 0, .15, .21], [.15, .21, .33, .39], [.39, .45, .6, .68]];
     lines.forEach((l, i) => {
       const [a, b, c, d] = win[i];
       const vin = i ? ease(clamp((p - a) / (b - a))) : 1, vout = ease(clamp((p - c) / (d - c)));
